@@ -1,7 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 * {
     font-family: "Noto Sans KR", sans-serif;
+}
+h1{
+    font-family: "Rubik";
+}
+h2, a{
+    font-family: "Montserrat";
 }
 
 img {
@@ -26,6 +34,11 @@ input {
     border-radius: 20px;
     background-color: rgba(0,0,0,0);
     cursor: pointer;
+}
+input:hover{
+    background-color: aliceblue;
+    border-color: rgba(39, 148, 182, 0.685);
+    box-shadow: 0 1px 20px 0 rgba(0,0,0,0.1);
 }
 a {
     text-decoration-line: none;
