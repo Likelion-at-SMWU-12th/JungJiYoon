@@ -27,6 +27,11 @@ input {
     background-color: rgba(0,0,0,0);
     cursor: pointer;
 }
+input:hover{
+    background-color: aliceblue;
+    border-color: rgba(39, 148, 182, 0.685);
+    box-shadow: 0 1px 20px 0 rgba(0,0,0,0.1);
+}
 a {
     text-decoration-line: none;
     color: white;
