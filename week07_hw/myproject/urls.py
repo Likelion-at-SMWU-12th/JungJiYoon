@@ -1,5 +1,5 @@
 """
-URL configuration for myinsta project.
+URL configuration for myproject project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.0/topics/http/urls/
@@ -15,17 +15,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
-from posts.views import url_view, url_parameter_view, function_view, class_view
-from posts.views import index 
+from django.urls import path
+from mypage.views import my_info, my_diary
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('url/', url_view),
-    path('url/<str:username>/', url_parameter_view),
-    path('fbv/', function_view),
-    path('cbv/', class_view.as_view()),
-
-    path('', index, name='index'),
-    path('posts/', include('posts.urls', namespace='posts')),
+    path('myinfo/', my_info.as_view()),
+    path('mydiary/', my_diary),    
 ]
