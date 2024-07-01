@@ -10,5 +10,12 @@
         {% block content %}
         {% endblock %}
     </div>
+    {% if request.user.is_authenticated %}
+    <span>{{request.user.username}}님, 반갑습니다!</span><br><br>
+    <a href="{% url 'accounts:logout' %}">로그아웃</a>
+    {% else %}
+    <a href="{% url 'accounts:login' %}">로그인</a>
+    <a href="{% url 'accounts:signup' %}">회원가입</a>
+    {% endif %}
 </body>
 </html>
