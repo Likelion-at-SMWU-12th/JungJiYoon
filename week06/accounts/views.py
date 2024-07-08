@@ -1,7 +1,10 @@
 from django.shortcuts import render, redirect
 from .forms import SignUpForm
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import login, logout
+from django.contrib.auth import login, logout, authenticate
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from users.models import User
 
 def signup_view(request):
     # GET 요청 시 HTML 응답
@@ -37,3 +40,48 @@ def logout_view(request):
     if request.user.is_authenticated:
         logout(request)
     return redirect('index')
+
+# 로그인 api
+@api_view(['POST'])
+def login_api(request):
+    data = request.data
+    username = data.get('username')
+    password = data.get('password')
+    user = authenticate(request, username=username, password=password)
+
+    if user is not None:
+        login(request, user)
+
+        data = {
+        'username' : username,
+        'password' : password
+        }
+
+        return Response(data)
+    
+    else:
+        return Response({"로그인 실패!"})
+
+# 회원가입 api
+@api_view(['POST'])
+def signup_api(request):
+    data = request.data
+    try:
+        username = data.get('username')
+        email = data.get('email')
+        password = data.get('password')
+        password2 = data.get('password2')
+
+        # '비밀번호'와 '비밀번호 확인'이 일치하지 않음
+        if password != password2:
+            return Response({"message":"PASSWORD_MISMATCH"})
+
+        User.objects.create(
+            username=username,
+            email=email,
+            password=password,
+        )
+        return Response({"message":"SUCCESS"})
+    except:
+        return Response({"message":"FAIL"})
+
