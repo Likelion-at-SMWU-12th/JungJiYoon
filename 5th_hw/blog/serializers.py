@@ -8,5 +8,5 @@ class PostModelSerializer(ModelSerializer):
 
 class PostListSerializer(PostModelSerializer):
     class Meta(PostModelSerializer.Meta):
-        fields = ['title', 'contents', 'created_at']
+        fields = ['title', 'contents', 'created_at', 'comments']
         depth = 1
