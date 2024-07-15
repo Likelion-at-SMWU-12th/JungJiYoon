@@ -10,3 +10,8 @@ class PostListSerializer(PostModelSerializer):
     class Meta(PostModelSerializer.Meta):
         fields = ['title', 'contents', 'created_at', 'comments']
         depth = 1
+
+class CommentSerializer(ModelSerializer):
+    class Meta:
+        model = Comment
+        fields = ['content', 'created_at']
