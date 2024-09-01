@@ -58,6 +58,7 @@ public class PostDao {
         postEntity.setWriter(
                 dto.getWriter() == null ? postEntity.getWriter(): dto.getWriter()
         );
+        this.postRepository.save(postEntity);
     }
 
     public void deletePost(int id){
