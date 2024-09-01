@@ -1,4 +1,4 @@
-### 🦁 멋사 1주차 과제 🦁
+## 🦁 멋사 1주차 과제 🦁
 | 실습 <br> 번호 | 캡쳐 | 
 |:------:|:------|
 |`MTV 구조`|<img width="782" src="https://github.com/Likelion-at-SMWU-12th/JungJiYoon/assets/111862541/163a752a-f15a-47fc-968a-44ece9620ae9">|
@@ -7,7 +7,7 @@
 |`Template`|사용자에게 보여지는 부분(HTML 파일)|
 
 
-### 🦁 스프링 어노테이션 정리 🦁
+## 🦁 스프링 어노테이션 정리 🦁
 | 이름 | 내용 |
 |:------:|:------|
 |@RestController|스프링 컨트롤러 중 view로 응답하지 않는 컨트롤러. <br> method의 반환 결과를 JSON 형태로 반환. |
@@ -21,3 +21,9 @@
 |@RequestBody|요청 시 보내져 온 데이터를 바로 class나 model 형태로 매핑하기 위한 어노테이션이다. <br> POST,PUT,PATCH로 요청 시, Request.body 값들을 자바 타입으로 파싱해준다.|
 
 
+## 🦁 각 계층의 기능과 역할 🦁 
+![image](https://github.com/user-attachments/assets/da7fd0a9-2865-4f58-9332-39bbc00c710d)
+
+
+
+### DTO 사용하는 이유
