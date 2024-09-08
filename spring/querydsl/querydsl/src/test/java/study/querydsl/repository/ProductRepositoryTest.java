@@ -8,9 +8,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.domain.PageRequest;
 import study.querydsl.entity.Product;
 import study.querydsl.entity.QProduct;
 
+import java.awt.print.Pageable;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -27,11 +29,21 @@ class ProductRepositoryTest {
     // @BeforeEach를 사용하여 각 테스트 전에 더미 데이터 삽입
     @BeforeEach
     void setUp() {
-        productRepository.save(new Product("펜", 1000, 100));
-        productRepository.save(new Product("연필", 500, 200));
-        productRepository.save(new Product("노트", 2000, 150));
-        productRepository.save(new Product("지우개", 300, 300));
-        productRepository.save(new Product("자", 700, 250));
+        productRepository.save(new Product("펜1", 1000, 100, 1));
+        productRepository.save(new Product("펜2", 500, 200, 2));
+        productRepository.save(new Product("펜3", 2000, 150, 3));
+        productRepository.save(new Product("펜4", 300, 300, 4));
+        productRepository.save(new Product("펜5", 700, 250, 5));
+        productRepository.save(new Product("펜6", 1000, 100, 6));
+        productRepository.save(new Product("펜7", 1000, 100, 7));
+        productRepository.save(new Product("펜8", 1000, 100, 8));
+        productRepository.save(new Product("펜9", 1000, 100, 9));
+        productRepository.save(new Product("펜10", 1000, 100, 10));
+        productRepository.save(new Product("펜11", 1000, 100, 11));
+        productRepository.save(new Product("펜12", 1000, 100, 12));
+        productRepository.save(new Product("펜13", 1000, 100, 13));
+        productRepository.save(new Product("펜14", 1000, 100, 14));
+        productRepository.save(new Product("펜15", 1000, 100, 15));
     }
 
     @Test
@@ -84,6 +96,53 @@ class ProductRepositoryTest {
             System.out.println("--------------------");
             System.out.println("Product Name : " + product.get(qProduct.name));
             System.out.println("Product Price : " + product.get(qProduct.price));
+            System.out.println("--------------------");
+        }
+    }
+
+    // 쿼리 메소드 방식 테스트
+    @Test
+    void popularTest(){
+        List<Product> popularProducts = productRepository.findTop10ByOrderByPopularityDesc();
+
+        for (Product product : popularProducts) {
+            System.out.println("--------------------");
+            System.out.println("Product Name : " + product.getName());
+            System.out.println("Product Popularity : " + product.getPopularity());
+            System.out.println("--------------------");
+        }
+
+    }
+
+    @Test
+    void popularTest2(){
+        List<Product> popularProducts = productRepository.findTop10ByPopularity(PageRequest.of(0, 10));
+
+        for (Product product : popularProducts) {
+            System.out.println("--------------------");
+            System.out.println("Product Name : " + product.getName());
+            System.out.println("Product Popularity : " + product.getPopularity());
+            System.out.println("--------------------");
+        }
+
+    }
+
+    @Test
+    void popularTest3(){
+        JPAQueryFactory query = new JPAQueryFactory(entityManager);
+        QProduct qProduct = QProduct.product;
+
+        List<Tuple> productList = query
+                .select(qProduct.name, qProduct.popularity)
+                .from(qProduct)
+                .orderBy(qProduct.popularity.desc())
+                .limit(10)
+                .fetch();
+
+        for (Tuple product : productList) {
+            System.out.println("--------------------");
+            System.out.println("Product Name : " + product.get(qProduct.name));
+            System.out.println("Product Popularity : " + product.get(qProduct.popularity));
             System.out.println("--------------------");
         }
     }
