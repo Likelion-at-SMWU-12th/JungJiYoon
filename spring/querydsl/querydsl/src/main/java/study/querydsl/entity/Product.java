@@ -21,11 +21,13 @@ public class Product {
     private String name;
     private int price;
     private int stock;
+    private int popularity;
 
-    public Product(String name, int price, int stock){
+    public Product(String name, int price, int stock, int popularity){
         this.name = name;
         this.price = price;
         this.stock = stock;
+        this.popularity = popularity;
     }
 
 }
