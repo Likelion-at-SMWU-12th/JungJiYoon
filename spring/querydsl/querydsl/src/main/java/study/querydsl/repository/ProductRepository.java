@@ -19,4 +19,12 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("SELECT p FROM Product p ORDER BY p.popularity DESC")
     List<Product> findTop10ByPopularity(Pageable pageable);
 
+    //최근 등록된 상품 Top10을 반환
+    //1. 쿼리 메소드
+    List<Product> findTop10ByOrderByIdDesc();
+
+    //2. 쿼리 메소드
+    @Query("SELECT p FROM Product p ORDER BY p.id DESC")
+    List<Product> findTop10ByIdDesc(Pageable pageable);
+
 }

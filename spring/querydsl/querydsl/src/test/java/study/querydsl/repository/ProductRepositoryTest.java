@@ -29,21 +29,21 @@ class ProductRepositoryTest {
     // @BeforeEach를 사용하여 각 테스트 전에 더미 데이터 삽입
     @BeforeEach
     void setUp() {
-        productRepository.save(new Product("펜1", 1000, 100, 1));
-        productRepository.save(new Product("펜2", 500, 200, 2));
-        productRepository.save(new Product("펜3", 2000, 150, 3));
-        productRepository.save(new Product("펜4", 300, 300, 4));
-        productRepository.save(new Product("펜5", 700, 250, 5));
-        productRepository.save(new Product("펜6", 1000, 100, 6));
-        productRepository.save(new Product("펜7", 1000, 100, 7));
+        productRepository.save(new Product("펜1", 1000, 100, 15));
+        productRepository.save(new Product("펜2", 500, 200, 14));
+        productRepository.save(new Product("펜3", 2000, 150, 13));
+        productRepository.save(new Product("펜4", 300, 300, 12));
+        productRepository.save(new Product("펜5", 700, 250, 11));
+        productRepository.save(new Product("펜6", 1000, 100, 10));
+        productRepository.save(new Product("펜7", 1000, 100, 9));
         productRepository.save(new Product("펜8", 1000, 100, 8));
-        productRepository.save(new Product("펜9", 1000, 100, 9));
-        productRepository.save(new Product("펜10", 1000, 100, 10));
-        productRepository.save(new Product("펜11", 1000, 100, 11));
-        productRepository.save(new Product("펜12", 1000, 100, 12));
-        productRepository.save(new Product("펜13", 1000, 100, 13));
-        productRepository.save(new Product("펜14", 1000, 100, 14));
-        productRepository.save(new Product("펜15", 1000, 100, 15));
+        productRepository.save(new Product("펜9", 1000, 100, 7));
+        productRepository.save(new Product("펜10", 1000, 100, 6));
+        productRepository.save(new Product("펜11", 1000, 100, 5));
+        productRepository.save(new Product("펜12", 1000, 100, 4));
+        productRepository.save(new Product("펜13", 1000, 100, 3));
+        productRepository.save(new Product("펜14", 1000, 100, 2));
+        productRepository.save(new Product("펜15", 1000, 100, 1));
     }
 
     @Test
@@ -143,6 +143,51 @@ class ProductRepositoryTest {
             System.out.println("--------------------");
             System.out.println("Product Name : " + product.get(qProduct.name));
             System.out.println("Product Popularity : " + product.get(qProduct.popularity));
+            System.out.println("--------------------");
+        }
+    }
+
+    @Test
+    void idTest(){
+        List<Product> popularProducts = productRepository.findTop10ByOrderByIdDesc();
+
+        for (Product product : popularProducts) {
+            System.out.println("--------------------");
+            System.out.println("Product Name : " + product.getName());
+            System.out.println("Product Id : " + product.getId());
+            System.out.println("--------------------");
+        }
+
+    }
+
+    @Test
+    void idTest2(){
+        List<Product> popularProducts = productRepository.findTop10ByIdDesc(PageRequest.of(0, 10));
+
+        for (Product product : popularProducts) {
+            System.out.println("--------------------");
+            System.out.println("Product Name : " + product.getName());
+            System.out.println("Product Id : " + product.getId());
+            System.out.println("--------------------");
+        }
+    }
+
+    @Test
+    void idTest3(){
+        JPAQueryFactory jpaQueryFactory = new JPAQueryFactory(entityManager);
+        QProduct qProduct = QProduct.product;
+
+        List<Tuple> productList = jpaQueryFactory
+                .select(qProduct.name, qProduct.id)
+                .from(qProduct)
+                .orderBy(qProduct.id.desc())
+                .limit(5)
+                .fetch();
+
+        for (Tuple product : productList) {
+            System.out.println("--------------------");
+            System.out.println("Product Name : " + product.get(qProduct.name));
+            System.out.println("Product Id : " + product.get(qProduct.id));
             System.out.println("--------------------");
         }
     }
