@@ -25,6 +25,10 @@ public class Post {
     private String content;
 
     @ManyToOne
+    @JoinColumn(name = "board_id")
+    private Board board;
+
+    @ManyToOne
     @JoinColumn(name = "author_id")
     private Author author;
 

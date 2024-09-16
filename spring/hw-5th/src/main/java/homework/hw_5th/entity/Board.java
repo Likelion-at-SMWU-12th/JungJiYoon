@@ -19,8 +19,7 @@ public class Board {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "board_id")
+    @OneToMany(mappedBy = "board", fetch=FetchType.EAGER)
     private List<Post> posts = new ArrayList<>();
 
 }
