@@ -29,7 +29,7 @@ public class RestTemplateService {
     }
 
     // getNameWithPathVariable() 메서드
-    // 경로 변수({name})가 포함된 http://localhost:9090/api/v1/crud-api/wonhee 에 GET 요청을 보내고, 서버에서 받은 응답의 본문을 반환함
+    // 경로 변수({name})가 포함된 http://localhost:9090/api/v1/crud-api/jiyoon 에 GET 요청을 보내고, 서버에서 받은 응답의 본문을 반환함
     // 경로 변수를 포함한 GET 요청을 보내기 위해 RestTemplate 메서드인 getForEntity()가 사용되었음
     public String getNameWithPathVariable() {
         URI uri = UriComponentsBuilder // 여러 파라미터를 연결하여 URI 형식으로 만드는 기능을 수행함
@@ -37,7 +37,7 @@ public class RestTemplateService {
                 .path("/api/v1/crud-api/{name}") // 세부 경로 입력 - 여기에 사용된 변수의 값은 expand에서 지정
                 .encode()   // 인코딩 문자셋 설정 (디폴트 값은 UTF-8)
                 .build()
-                .expand("wonhee") // expand() 안에는 {변수}에 넣을 값을 차례로 입력한다.
+                .expand("jiyoon") // expand() 안에는 {변수}에 넣을 값을 차례로 입력한다.
                 // 복수의 값을 넣어야 할 경우 ,를 추가하여 구분한다!
                 .toUri(); // URI 타입으로 리턴 -> uri에 저장 -> 외부 API 요청하는 데에 사용됨
 
@@ -53,7 +53,7 @@ public class RestTemplateService {
         URI uri = UriComponentsBuilder
                 .fromUriString("http://localhost:9090")
                 .path("/api/v1/crud-api/param")
-                .queryParam("name", "wonhee") // (키, 값) 형식으로 파라미터를 추가할 수 있는 메서드
+                .queryParam("name", "jiyoon") // (키, 값) 형식으로 파라미터를 추가할 수 있는 메서드
                 .encode()
                 .build()
                 .toUri();
@@ -70,8 +70,8 @@ public class RestTemplateService {
         URI uri = UriComponentsBuilder
                 .fromUriString("http://localhost:9090")
                 .path("/api/v1/crud-api")
-                .queryParam("name", "wonhee")
-                .queryParam("email", "wonhee@smwu.ac.kr")
+                .queryParam("name", "jiyoon")
+                .queryParam("email", "jiyoon@smwu.ac.kr")
                 .queryParam("organization", "likelion")
                 .encode()
                 .build()
@@ -98,8 +98,8 @@ public class RestTemplateService {
                 .toUri();
 
         MemberDto memberDto = new MemberDto();
-        memberDto.setName("wonhee");
-        memberDto.setEmail("wonhee@smwu.ac.kr");
+        memberDto.setName("jiyoon");
+        memberDto.setEmail("jiyoon@smwu.ac.kr");
         memberDto.setOrganization("likelion");
 
         RequestEntity<MemberDto> requestEntity = RequestEntity

@@ -2,6 +2,7 @@ package jiyoon.client.controller;
 
 import jiyoon.client.dto.MemberDto;
 //import jiyoon.client.dto.Tweet;
+import jiyoon.client.dto.Tweet;
 import jiyoon.client.service.WebClientService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +36,20 @@ public class WebClientController {
     @GetMapping("/header")
     public Mono<MemberDto> getHeader() {
         return webClientService.postWithHeader();
+    }
+
+    @GetMapping(value = "/tweets-non-blocking", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<Tweet> getTweetsNonBlocking(){
+        log.info("Starting NON-BLOCKING Controller!");
+        Flux<Tweet> tweetFlux = WebClient.create("http://localhost:9090")
+                .get()
+                .uri("/api/v1/slow")
+                .retrieve()
+                .bodyToFlux(Tweet.class);
+
+        tweetFlux.subscribe(tweet -> log.info(tweet.toString()));
+        log.info("Existing NON-BLOCKING Controller!");
+        return tweetFlux;
     }
 
 }
